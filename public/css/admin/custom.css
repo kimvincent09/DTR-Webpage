@@ -1,0 +1,15 @@
+.breadcrumb {
+    background: none;
+}
+
+#dataTable {
+    width: 100% !important;
+}
+
+#dataTable_length, #dataTable_info {
+    display: inline-block;
+}
+
+#dataTable_filter, .dataTables_paginate {
+    float: right;
+}
