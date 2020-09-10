@@ -124,7 +124,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('employees.update', $employee) }}" method="post" id="edit-form" novalidate>
+                    <form method="post" id="edit-form" novalidate>
                         @method('PUT')
                         @csrf
 
@@ -151,7 +151,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('employees.import', ['employee' => $employee->id]) }}" method="post" id="form-import">
+                    <form method="post" id="form-import">
                         @csrf
                         <div class="form-group">
                             <label for="type">Logs</label>
