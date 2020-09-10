@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'admin'], function () {
+        Route::post('employees/{employee}/import', 'ImportEmployeeController')->name('employees.import');
         Route::resource('employees', 'EmployeeController');
     });
 });
+

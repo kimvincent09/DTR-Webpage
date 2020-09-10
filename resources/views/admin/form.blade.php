@@ -9,7 +9,7 @@
                         </div>
                         <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="date" class="form-control {{ $errors->has('date') ? 'is-invalid' : ''}}" id="date" name="date" value="{{ old('date', '') }}">
+                            <input type="date" class="form-control {{ $errors->has('date') ? 'is-invalid' : ''}}" id="date" name="date">
                             @error('date')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -18,7 +18,7 @@
                         </div>
                         <div class="form-group">
                             <label for="time">Time</label>
-                            <input type="time" class="form-control {{ $errors->has('time') ? 'is-invalid' : ''}}" id="time" name="time" value="{{ old('time', '') }}">
+                            <input type="time" class="form-control {{ $errors->has('time') ? 'is-invalid' : ''}}" id="time" name="time">
                             @error('time')
                             <div class="invalid-feedback">
                                 {{ $message }}

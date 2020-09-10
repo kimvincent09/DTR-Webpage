@@ -60,7 +60,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('admin.index', ['employee' => $employee]);
+        return view('admin.index', ['employee'=>$employee]);
     }
 
     /**
@@ -72,8 +72,9 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, Employee $employee)
     {
-        $employee->update($request->validated());
-        return back()->with('success-message', 'Loan type updated!');
+        $employee = Employee::findOrFail($request->id);
+        $employee->update($request->all());
+        return back()->with('success-message', 'Employee updated!');
     }
 
     /**
@@ -84,6 +85,11 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        if ($employee->delete()) {
+            return back()->with('success-message', 'Document deleted!');
+        }
+
+        return back()->with('error-message', 'Failed to remove document!');
     }
-}
+    }
+

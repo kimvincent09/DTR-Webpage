@@ -27,6 +27,7 @@
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
+                {{dump($error ?? '')}}
                 <div class="container-fluid">
                     <div class="col-md-10 offset-md-1">
                         <div class="row">
@@ -34,7 +35,7 @@
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
                                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#employeeModal">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#importModal">
                                                 <i class="fas fa-upload fa-sm text-white-50"></i> Import Record
                                             </button>
                                             <h6 class="m-0 font-weight-bold text-primary">Daily Transcript Record</h6>
@@ -57,17 +58,18 @@
                                                 <tbody>
                                                     @foreach($employee as $employee)
                                                     <tr>
-                                                        <td>{{ $employee->name}}   <span class="float-right"> <button class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#editModal" data-name="{{$employee->name}}"data-date="{{$employee->date}}"data-time="{{$employee->time}}">
-                                        <i class="fas fa-pencil-alt"></i>
-</button>
+                                                        <td>{{ $employee->name}} <span class="float-right"> <button class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#editModal" data-id="{{$employee->id}}" data-name="{{$employee->name}}" data-date="{{$employee->date}}" data-time="{{$employee->time}}">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </button>
 
-                                                            <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}" method="POST" style="display:inline-block">
-                                                          
-                                                                @method('DELETE')
-                                                                <button type="button" class="btn btn-danger btn-circle btn-sm btn-delete" >
-                                                <i class="fas fa-trash"></i> 
-                                            </button>
-                                                            </form></span></td>
+                                                                <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}" method="POST" style="display:inline-block">
+
+                                                                    @method('DELETE')
+                                                                    <button type="button" class="btn btn-danger btn-circle btn-sm btn-delete">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </span></td>
                                                         <td>{{ $employee->date}}</td>
                                                         <td>{{ $employee->time}}</td>
                                                     </tr>
@@ -98,7 +100,7 @@
                 <div class="modal-body">
                     <form action="{{ route('employees.store') }}" method="post" id="offer-form" novalidate>
                         @csrf
-                      @include('admin.form')
+                        @include('admin.form')
                         <div class="float-right">
                             <button type="reset" class="btn btn-danger" id="btn-clear">Clear</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -122,9 +124,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('employees.update', $employee->id) }}" method="post" id="edit-form" novalidate>
-                    @method('PUT')
+                    <form action="{{ route('employees.update', $employee) }}" method="post" id="edit-form" novalidate>
+                        @method('PUT')
                         @csrf
+
                         @include('admin.form')
                         <div class="float-right">
                             <button type="reset" class="btn btn-danger" id="btn-clear">Clear</button>
@@ -133,6 +136,34 @@
                     </form>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import Log</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="form-import">
+                        @csrf
+                        <div class="form-group">
+                            <label for="type">Logs</label>
+                            <input type="file" class="form-control" id="employees" name="employees">
+                            <div class="invalid-feedback" id="employees-feedback"></div>
+                        </div>
+                        <div class="float-right">
+                            <button type="reset" class="btn btn-danger" id="btn-clear">Clear</button>
+                            <button type="submit" class="btn btn-primary" id="btn-import">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
