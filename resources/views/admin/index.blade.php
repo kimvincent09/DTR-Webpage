@@ -27,7 +27,7 @@
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                {{dump($error ?? '')}}
+                {{dump($errors)}}
                 <div class="container-fluid">
                     <div class="col-md-10 offset-md-1">
                         <div class="row">
@@ -151,7 +151,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="form-import">
+                    <form action="{{ route('employees.import', ['employee' => $employee->id]) }}" method="post" id="form-import">
                         @csrf
                         <div class="form-group">
                             <label for="type">Logs</label>
