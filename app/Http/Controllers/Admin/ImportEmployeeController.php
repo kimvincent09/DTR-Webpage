@@ -22,7 +22,7 @@ class ImportEmployeeController extends Controller
         Excel::import(new EmployeeImport($employee->id), $request->file('employees'));
 
         return response()->json([
-            'message' => 'Successfully imported branches'
+            'message' => 'Successfully imported logs'
         ]);
     }
 }
