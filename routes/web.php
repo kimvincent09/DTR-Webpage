@@ -19,6 +19,6 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'admin'], function () {
-        Route::resource('employees', 'EmployeeController')->except(['create', 'edit']);
+        Route::resource('employees', 'EmployeeController');
     });
 });

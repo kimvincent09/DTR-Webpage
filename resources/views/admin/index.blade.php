@@ -57,14 +57,14 @@
                                                 <tbody>
                                                     @foreach($employee as $employee)
                                                     <tr>
-                                                        <td>{{ $employee->name}}   <span class="float-right"><button class="btn btn-info btn-circle btn-sm btn-edit" data-id="{{ $employee->id}}">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </button>
+                                                        <td>{{ $employee->name}}   <span class="float-right"> <button class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#editModal" data-name="{{$employee->name}}"data-date="{{$employee->date}}"data-time="{{$employee->time}}">
+                                        <i class="fas fa-pencil-alt"></i>
+</button>
 
                                                             <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}" method="POST" style="display:inline-block">
                                                           
                                                                 @method('DELETE')
-                                                                <button type="button" class="btn btn-danger btn-circle btn-sm btn-delete" data-toggle="modal" data-target="#editModal">
+                                                                <button type="button" class="btn btn-danger btn-circle btn-sm btn-delete" >
                                                 <i class="fas fa-trash"></i> 
                                             </button>
                                                             </form></span></td>
@@ -90,7 +90,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add log</h5>
+                    <h5 class="modal-title" id="employeeModalLabel">Add log</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -98,33 +98,7 @@
                 <div class="modal-body">
                     <form action="{{ route('employees.store') }}" method="post" id="offer-form" novalidate>
                         @csrf
-                        <div class="form-group">
-                            <label for="name">Employee Name</label>
-                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="name" name="name" value="{{ old('name', '') }}">
-                            @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Date</label>
-                            <input type="date" class="form-control {{ $errors->has('date') ? 'is-invalid' : ''}}" id="date" name="date" value="{{ old('date', '') }}">
-                            @error('date')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="time">Time</label>
-                            <input type="time" class="form-control {{ $errors->has('time') ? 'is-invalid' : ''}}" id="time" name="time" value="{{ old('time', '') }}">
-                            @error('time')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
+                      @include('admin.form')
                         <div class="float-right">
                             <button type="reset" class="btn btn-danger" id="btn-clear">Clear</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -148,40 +122,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('employees.update') }}" method="post" id="offer-form" novalidate>
+                    <form action="{{ route('employees.update', $employee->id) }}" method="post" id="edit-form" novalidate>
+                    @method('PUT')
                         @csrf
-                        <div class="form-group">
-                            <label for="name">Employee Name</label>
-                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="name" name="name" value="{{ old('name', '') }}">
-                            @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Date</label>
-                            <input type="date" class="form-control {{ $errors->has('date') ? 'is-invalid' : ''}}" id="date" name="date" value="{{ old('date', '') }}">
-                            @error('date')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="time">Time</label>
-                            <input type="time" class="form-control {{ $errors->has('time') ? 'is-invalid' : ''}}" id="time" name="time" value="{{ old('time', '') }}">
-                            @error('time')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
+                        @include('admin.form')
                         <div class="float-right">
                             <button type="reset" class="btn btn-danger" id="btn-clear">Clear</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
-
                     </form>
                 </div>
 

@@ -10,10 +10,14 @@ $('#employeeModal').on('show.bs.modal', function (event) {
   })
 $('#editModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
-    var recipient = button.data('whatever') 
+    var name = button.data('name') 
+    var date = button.data('date') 
+    var time = button.data('time') 
     var modal = $(this)
     modal.find('.modal-title').text('Edit Log')
-    modal.find('.modal-body input').val(recipient)
+    modal.find('.modal-body #name').val(name)
+    modal.find('.modal-body #date').val(date)
+    modal.find('.modal-body #time').val(time)
   })
 
 $('#btn-clear').click(function() {
