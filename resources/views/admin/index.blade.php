@@ -30,6 +30,7 @@
                 {{dump($errors)}}
                 <div class="container-fluid">
                     <div class="col-md-10 offset-md-1">
+                    @include('partials.admin.message')
                         <div class="row">
                             <div class="col-md-8 offset-md-2">
                                 <div class="card shadow mb-4">
@@ -63,8 +64,8 @@
                                                                 </button>
 
                                                                 <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}" method="POST" style="display:inline-block">
-
                                                                     @method('DELETE')
+                                                                    <input type="hidden" name="_method" value="DELETE">
                                                                     <button type="button" class="btn btn-danger btn-circle btn-sm btn-delete">
                                                                         <i class="fas fa-trash"></i>
                                                                     </button>
@@ -124,7 +125,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="edit-form" novalidate>
+                    <form action="{{route('employees.update', $employee->id)}}"method="post" id="edit-form" novalidate>
                         @method('PUT')
                         @csrf
 
@@ -151,7 +152,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="form-import">
+                    <form action="{{route('employees.import') }}" method="post" id="form-import">
                         @csrf
                         <div class="form-group">
                             <label for="type">Logs</label>

@@ -72,9 +72,9 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, Employee $employee)
     {
-        $employee = Employee::findOrFail($request->id);
-        $employee->update($request->all());
-        return back()->with('success-message', 'Employee updated!');
+       
+        $employee->update($request->validated());
+        return back()->with('success-message', 'Employee Updated');
     }
 
     /**
@@ -86,10 +86,16 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         if ($employee->delete()) {
-            return back()->with('success-message', 'Document deleted!');
+            return back()->with('undo-message', 'Document deleted! Click here to undo');
         }
 
         return back()->with('error-message', 'Failed to remove document!');
+    }
+
+    public function restore($id)
+    {
+        Employee::onlyTrashed()->where('id', $id)->restore();
+        return view('admin.index', compact('employees'));
     }
     }
 

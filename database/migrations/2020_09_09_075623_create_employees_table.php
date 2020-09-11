@@ -19,6 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('date');
             $table->string('time');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -4,9 +4,12 @@ namespace App\Imports;
 
 use App\Model\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Throwable;
 
-class EmployeeImport implements ToModel
+class EmployeeImport implements ToModel, SkipsOnError, WithHeadingRow, WithStartRow
 {
     /**
     * @param array $row
@@ -15,6 +18,7 @@ class EmployeeImport implements ToModel
     */
     public function model(array $row)
     {
+
         return new Employee([
             'name' => $row['name'],
             'time' => $row['time'],
