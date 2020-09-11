@@ -125,7 +125,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('employees.update', $employee->id)}}"method="post" id="edit-form" novalidate>
+                    <form action="{{route('employees.update', $employee)}}"method="post" id="edit-form" novalidate>
                         @method('PUT')
                         @csrf
 
